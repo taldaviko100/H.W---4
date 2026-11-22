@@ -40,6 +40,8 @@ class MainWindow(QMainWindow):
         self.bonus_input.setRange(0, 100)
         self.main_layout.addWidget(self.bonus_input)
 
+        self.bonus_input.lineEdit().returnPressed.connect(self.apply_bonus)
+
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select grades file", "","CSV files (*.csv)")
         if file_name:
@@ -64,6 +66,14 @@ class MainWindow(QMainWindow):
             self.table.setItem(row, 0, QTableWidgetItem(self.student_ids[row]))
             self.table.setItem(row, 1, QTableWidgetItem(str(self.original_grades[row])))
             self.table.setItem(row, 2, QTableWidgetItem(str(self.corrected_grades[row])))
+
+    def apply_bonus(self):
+        bonus = self.bonus_input.value()
+        for i in range(len(self.original_grades)):
+            self.corrected_grades[i] = self.original_grades[i] + bonus
+            if self.corrected_grades[i] > 100:
+                self.corrected_grades[i] = 100
+        self.update_table()
 
 
 if __name__ == "__main__":
