@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -20,6 +20,11 @@ class MainWindow(QMainWindow):
         self.title_label = QLabel("Grades Correction")
         self.title_label.setObjectName("title")
         self.main_layout.addWidget(self.title_label)
+
+        self.table = QTableWidget(50, 3)
+        self.table.setHorizontalHeaderLabels(["ID", "Original Grades", "Corrected Grades"])
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.main_layout.addWidget(self.table)
 
 if __name__ == "__main__":
     app = QApplication()
