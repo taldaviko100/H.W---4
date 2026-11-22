@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog, QTableWidgetItem
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -49,6 +49,14 @@ class MainWindow(QMainWindow):
                     self.student_ids.append(parts[0])
                     self.original_grades.append(int(parts[1]))
                     self.corrected_grades.append(int(parts[1]))
+            self.update_table()
+            
+    def update_table(self):
+        self.table.clearContents()
+        for row in range(len(self.student_ids)):
+            self.table.setItem(row, 0, QTableWidgetItem(self.student_ids[row]))
+            self.table.setItem(row, 1, QTableWidgetItem(str(self.original_grades[row])))
+            self.table.setItem(row, 2, QTableWidgetItem(str(self.corrected_grades[row])))
 
 
 if __name__ == "__main__":
