@@ -80,8 +80,11 @@ class MainWindow(QMainWindow):
         self.update_table()
 
     def update_file(self):
-        pass
-
+        if self.selected_file:
+            with open(self.selected_file, "w") as f:
+                f.write("ID,Grade\n")
+                for i in range(len(self.student_ids)):
+                    f.write(f"{self.student_ids[i]},{self.corrected_grades[i]}\n")
 
 if __name__ == "__main__":
     app = QApplication()
