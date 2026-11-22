@@ -1,10 +1,13 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog, QTableWidgetItem, QSpinBox
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QDesktopServices
+from About import AboutWindow
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.about_window = AboutWindow()
 
         self.student_ids = []
         self.original_grades = []
@@ -48,6 +51,10 @@ class MainWindow(QMainWindow):
         self.update_button.clicked.connect(self.update_file)
         self.main_layout.addWidget(self.update_button)
 
+        self.about_button = QPushButton("About")
+        self.about_button.clicked.connect(self.show_about)
+        self.main_layout.addWidget(self.about_button)
+
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select grades file", "","CSV files (*.csv)")
         if file_name:
@@ -88,6 +95,9 @@ class MainWindow(QMainWindow):
                 for i in range(len(self.student_ids)):
                     f.write(f"{self.student_ids[i]},{self.corrected_grades[i]}\n")
             QDesktopServices.openUrl(QUrl.fromLocalFile(self.selected_file))
+
+    def show_about(self):
+        self.about_window.show()
         
 
 if __name__ == "__main__":
