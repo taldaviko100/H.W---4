@@ -1,4 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog, QTableWidgetItem, QSpinBox
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QDesktopServices
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -85,6 +87,8 @@ class MainWindow(QMainWindow):
                 f.write("ID,Grade\n")
                 for i in range(len(self.student_ids)):
                     f.write(f"{self.student_ids[i]},{self.corrected_grades[i]}\n")
+            QDesktopServices.openUrl(QUrl.fromLocalFile(self.selected_file))
+        
 
 if __name__ == "__main__":
     app = QApplication()
