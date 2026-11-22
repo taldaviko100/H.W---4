@@ -42,6 +42,10 @@ class MainWindow(QMainWindow):
 
         self.bonus_input.lineEdit().returnPressed.connect(self.apply_bonus)
 
+        self.update_button = QPushButton("Update File")
+        self.update_button.clicked.connect(self.update_file)
+        self.main_layout.addWidget(self.update_button)
+
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select grades file", "","CSV files (*.csv)")
         if file_name:
@@ -74,6 +78,9 @@ class MainWindow(QMainWindow):
             if self.corrected_grades[i] > 100:
                 self.corrected_grades[i] = 100
         self.update_table()
+
+    def update_file(self):
+        pass
 
 
 if __name__ == "__main__":
