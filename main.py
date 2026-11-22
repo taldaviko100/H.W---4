@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,10 +21,23 @@ class MainWindow(QMainWindow):
         self.title_label.setObjectName("title")
         self.main_layout.addWidget(self.title_label)
 
+        self.load_button = QPushButton("Load grades file")
+        self.load_button.clicked.connect(self.load_file)
+        self.main_layout.addWidget(self.load_button)
+
+        self.file_label = QLabel("No file selected")
+        self.main_layout.addWidget(self.file_label)
+
         self.table = QTableWidget(50, 3)
         self.table.setHorizontalHeaderLabels(["ID", "Original Grades", "Corrected Grades"])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.main_layout.addWidget(self.table)
+
+    def load_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Select grades file", "","CSV files (*.csv)")
+        if file_name:
+            self.selected_file = file_name
+            self.file_label.setText(file_name)
 
 if __name__ == "__main__":
     app = QApplication()
