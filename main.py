@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog, QTableWidgetItem
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QTableWidget, QHeaderView, QPushButton, QFileDialog, QTableWidgetItem, QSpinBox
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -33,6 +33,13 @@ class MainWindow(QMainWindow):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.main_layout.addWidget(self.table)
 
+        self.bonus_label = QLabel("Bonus points — press Enter to apply")
+        self.main_layout.addWidget(self.bonus_label)
+
+        self.bonus_input = QSpinBox()
+        self.bonus_input.setRange(0, 100)
+        self.main_layout.addWidget(self.bonus_input)
+
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select grades file", "","CSV files (*.csv)")
         if file_name:
@@ -50,7 +57,7 @@ class MainWindow(QMainWindow):
                     self.original_grades.append(int(parts[1]))
                     self.corrected_grades.append(int(parts[1]))
             self.update_table()
-            
+
     def update_table(self):
         self.table.clearContents()
         for row in range(len(self.student_ids)):
