@@ -38,6 +38,18 @@ class MainWindow(QMainWindow):
         if file_name:
             self.selected_file = file_name
             self.file_label.setText(file_name)
+            self.student_ids = []
+            self.original_grades = []
+            self.corrected_grades = []
+
+            with open(self.selected_file, "r") as f:
+                next(f)
+                for line in f:
+                    parts = line.split(",")
+                    self.student_ids.append(parts[0])
+                    self.original_grades.append(int(parts[1]))
+                    self.corrected_grades.append(int(parts[1]))
+
 
 if __name__ == "__main__":
     app = QApplication()
