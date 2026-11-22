@@ -28,6 +28,11 @@ class AboutWindow(QWidget):
         self.linkedin_label.setOpenExternalLinks(True)
         self.linkedin_label.setStyleSheet("font-size: 20px;")
 
+        self.github_label = QLabel('<a href="https://github.com/taldaviko100/H.W---4">Project on GitHub</a>',self)
+        self.github_label.setGeometry(80, 510, 340, 35)
+        self.github_label.setOpenExternalLinks(True)
+        self.github_label.setStyleSheet("font-size: 20px;")
+
 
 if __name__ == '__main__':
     app = QApplication()
